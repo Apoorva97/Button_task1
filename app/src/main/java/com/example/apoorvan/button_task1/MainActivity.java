@@ -2,6 +2,7 @@ package com.example.apoorvan.button_task1;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.PersistableBundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static final String PREFS = "ExamplePrefs";
     int count = 0;
     RelativeLayout lay;
 
@@ -46,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
                     lay.setBackgroundColor(Color.YELLOW);
                 else
                     lay.setBackgroundColor(Color.GREEN);
+                SharedPreferences examplePrefs = getSharedPreferences(PREFS, 0);
+                SharedPreferences.Editor editor =examplePrefs.edit();
+                editor.putInt("COUNT",count);
+                editor.commit();
+
 
             }
 
@@ -72,5 +79,10 @@ public class MainActivity extends AppCompatActivity {
         count = savedInstanceState.getInt("count");
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        SharedPreferences example = getSharedPreferences(PREFS,00);
+        String user=example.getString("COUNT: ","COUNT: 0");
+    }
 }
